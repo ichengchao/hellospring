@@ -28,5 +28,10 @@ jobs:
       shell: bash
       env:
         SUPER_SECRET: ${{ secrets.mykey }}
+        test: testenv
       run: |
         echo mykey: "$env:SUPER_SECRET"
+        echo 1: "$env:JAVA_HOME"
+        echo 2: "$JAVA_HOME"
+        echo 3: "$env:test"
+        echo 4: "$test"
