@@ -1,0 +1,10 @@
+target/
+.classpath
+.project
+.settings/
+velocity.log
+
+*.iml
+.idea/
+.DS_Store
+logs
