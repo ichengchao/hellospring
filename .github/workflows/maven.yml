@@ -23,5 +23,10 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        echo mykey--> ${{ secrets.mykey }}
         ls target/
+    - name: Test cmd
+      shell: bash
+      env:
+        SUPER_SECRET: ${{ secrets.mykey }}
+      run: |
+        echo mykey: "$env:SUPER_SECRET"
