@@ -31,6 +31,7 @@ jobs:
         test: testenv
       run: |
         echo mykey: "$env:SUPER_SECRET"
+        echo mykey2: "$SUPER_SECRET"
         echo 1: "$env:JAVA_HOME"
         echo 2: "$JAVA_HOME"
         echo 3: "$env:test"
