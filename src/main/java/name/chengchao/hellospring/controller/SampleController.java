@@ -40,11 +40,13 @@ public class SampleController {
 
     }
 
-    @RequestMapping("/test")
-    public void test(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("/mock")
+    public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(Thread.currentThread());
+            sb.append(lineBreak);
+            sb.append(new Date());
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {

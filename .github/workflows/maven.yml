@@ -32,8 +32,8 @@ jobs:
         password: ${{ secrets.aliyun_key }}
     - name: Docker build&push
       run: |
-        docker build . -t registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
-        docker push registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
+        docker build . -t registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:${{ github.sha }}
+        docker push registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:${{ github.sha }}
         docker images
     - name: test
       shell: bash
