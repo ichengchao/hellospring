@@ -24,16 +24,17 @@ jobs:
       run: |
         mvn -B package --file pom.xml
         cp target/hellospring-0.0.1.jar disk/helloweb.jar
-    - name: Build Docker Image
+    - name: Docker login
       uses: azure/docker-login@v1
       with:
         login-server: registry.cn-hangzhou.aliyuncs.com
         username: ${{ secrets.aliyun_username }}
         password: ${{ secrets.aliyun_key }}
-    - run: |
-      docker build . -t registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
-      docker push registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
-      docker images
+    - name: Docker build&push
+      run: |
+        docker build . -t registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
+        docker push registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
+        docker images
     - name: test
       shell: bash
       env:
