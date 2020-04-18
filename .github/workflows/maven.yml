@@ -35,7 +35,8 @@ jobs:
         docker build . -t registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:${{ github.sha }}
         docker push registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:${{ github.sha }}
         docker images
-    - name: test
+        cat kubernetes/deploy.yaml | sed -e "s/\${version}/${{ github.sha }}/" > kubernetes/tmp.yaml
+    - name: test env
       shell: bash
       env:
         SUPER_SECRET: ${{ secrets.mykey }}
@@ -44,6 +45,13 @@ jobs:
         echo mykey2: "$SUPER_SECRET"
         echo 2: "$JAVA_HOME"
         echo 4: "$test"
+    - name: test kubectl
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: apply -f kubernetes/tmp.yaml
+#        args: get pods
     - name: notify to dingding
       run: |
         curl --location --request POST 'https://oapi.dingtalk.com/robot/send?access_token=${{ secrets.dingding_access_token }}' \
@@ -51,16 +59,9 @@ jobs:
         --data-raw '{
             "msgtype": "text",
             "text": {
-                "content": "docker image push done,version:${{ github.sha }}"
+                "content": "deploy success,version:[${{ github.sha }}]"
             }
         }'
-        cat kubernetes/deploy.yaml | sed -e "s/\${version}/${{ github.sha }}/" > kubernetes/tmp.yaml
         cat kubernetes/tmp.yaml
-    - name: test kubectl
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      with:
-        args: get pods
 
 
