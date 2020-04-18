@@ -1,6 +1,8 @@
 package name.chengchao.hellospring.controller;
 
 import java.util.Date;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,38 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(new Date());
             sb.append(lineBreak);
+            response.getWriter().write(sb.toString());
+            response.flushBuffer();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+    }
+
+    @RequestMapping("/system")
+    public void system(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(new Date());
+            sb.append(lineBreak);
+            sb.append("-----------------------------------------------------------------------------");
+            sb.append(lineBreak);
+            sb.append("getAllIpv4NoLoopbackAddresses:" + LocalInfoUtils.getAllIpv4NoLoopbackAddresses());
+            sb.append(lineBreak);
+            sb.append("HostName:" + LocalInfoUtils.getHostNameForLiunx());
+            sb.append(lineBreak);
+            sb.append("-----------------------------------------------------------------------------");
+            sb.append(lineBreak);
+            sb.append(lineBreak);
+
+            Properties props = System.getProperties();
+            Set<Object> keys = props.keySet();
+            for (Object key : keys) {
+                sb.append(key.toString() + " = " + props.getProperty(key.toString()));
+                sb.append(lineBreak);
+            }
+
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {
