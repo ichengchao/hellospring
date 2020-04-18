@@ -17,9 +17,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # && apt-get install -y vim \
 # && apt-get install -y git
 RUN echo "alias ll='ls -lh'" >> /root/.bashrc
-COPY disk/helloweb.jar /root/
+COPY disk/hellospring.jar /root/
 RUN echo "\
-java -jar /root/helloweb.jar\n\
+java -jar /root/hellospring.jar\n\
 tail\n\
 " >/root/init.sh
 EXPOSE 8080

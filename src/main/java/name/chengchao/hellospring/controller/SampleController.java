@@ -5,10 +5,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import name.chengchao.hellospring.util.LocalInfoUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import name.chengchao.hellospring.util.LocalInfoUtils;
 
 @Controller
 public class SampleController {
@@ -44,6 +45,8 @@ public class SampleController {
     public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
+            sb.append("mock");
+            sb.append(lineBreak);
             sb.append(Thread.currentThread());
             sb.append(lineBreak);
             sb.append(new Date());

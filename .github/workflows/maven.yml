@@ -23,7 +23,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        cp target/hellospring-0.0.1.jar disk/helloweb.jar
+        cp target/hellospring.jar disk/hellospring.jar
     - name: Docker login
       uses: azure/docker-login@v1
       with:
