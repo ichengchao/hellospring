@@ -44,3 +44,13 @@ jobs:
         echo mykey2: "$SUPER_SECRET"
         echo 2: "$JAVA_HOME"
         echo 4: "$test"
+    - name: notify to dingding
+      run: |
+        curl --location --request POST 'https://oapi.dingtalk.com/robot/send?access_token=${{ secrets.dingding_access_token }}' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+            "msgtype": "text",
+            "text": {
+                "content": "docker image push done,version:${{ github.sha }}"
+            }
+        }'
