@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hellojava
-        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:109a53ed5ddaf1e6cdbd5b2170cd41cc160d5a20
+        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:${version} # use sed replace
         ports:
         - containerPort: 80
         - containerPort: 8080

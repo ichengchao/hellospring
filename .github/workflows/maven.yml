@@ -54,3 +54,13 @@ jobs:
                 "content": "docker image push done,version:${{ github.sha }}"
             }
         }'
+        cat kubernetes/deploy.yaml | sed -e "s/\${version}/${{ github.sha }}/" > kubernetes/tmp.yaml
+        cat kubernetes/tmp.yaml
+    - name: test kubectl
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: get pods
+
+
