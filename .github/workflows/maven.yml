@@ -22,6 +22,8 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: |
+        echo version=${{ github.sha }} >>src/main/resources/hellospring.properties
+        echo createTime=`date +%Y%m%d_%H%M` >>src/main/resources/hellospring.properties
         mvn -B package --file pom.xml
         cp target/hellospring.jar disk/hellospring.jar
     - name: Docker login

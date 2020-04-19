@@ -1,5 +1,7 @@
 package name.chengchao.hellospring.controller;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +31,13 @@ public class SampleController {
     public void hello(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
+
+            // show hellospring.properties
+            URL url = ClassLoader.getSystemResource("hellospring.properties");
+            sb.append(FileUtils.readFileToString(new File(url.getFile()), "UTF-8"));
+            sb.append(lineBreak);
+            sb.append("-----------------------------------------------------------------------------");
+            sb.append(lineBreak);
             sb.append("getAllIpv4NoLoopbackAddresses:" + LocalInfoUtils.getAllIpv4NoLoopbackAddresses());
             sb.append(lineBreak);
             sb.append("HostName:" + LocalInfoUtils.getHostNameForLiunx());
