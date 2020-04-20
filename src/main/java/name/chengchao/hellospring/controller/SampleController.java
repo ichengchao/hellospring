@@ -91,7 +91,11 @@ public class SampleController {
     public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("mock 测试测试");
+            sb.append("机器信息");
+            sb.append(lineBreak);
+            sb.append("-----------------------------------------------------------------------------");
+            sb.append(lineBreak);
+            sb.append("HostName:" + LocalInfoUtils.getHostNameForLiunx());
             sb.append(lineBreak);
             sb.append(Thread.currentThread());
             sb.append(lineBreak);
