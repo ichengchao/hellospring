@@ -91,7 +91,7 @@ public class SampleController {
     public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("机器信息 测试信息");
+            sb.append("机器增加到3个pod");
             sb.append(lineBreak);
             sb.append("-----------------------------------------------------------------------------");
             sb.append(lineBreak);
