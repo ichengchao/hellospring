@@ -91,11 +91,13 @@ public class SampleController {
     public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("mock 测试");
+            sb.append("mock 测试测试");
             sb.append(lineBreak);
             sb.append(Thread.currentThread());
             sb.append(lineBreak);
             sb.append(new Date());
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("content-type", "text/plain;charset=utf-8");
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {
