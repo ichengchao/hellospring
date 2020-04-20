@@ -91,7 +91,7 @@ public class SampleController {
     public void mock(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("kubectl test");
+            sb.append("mock");
             sb.append(lineBreak);
             sb.append(Thread.currentThread());
             sb.append(lineBreak);
