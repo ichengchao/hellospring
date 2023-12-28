@@ -46,6 +46,7 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(new Date());
             sb.append(lineBreak);
+            sb.append("hello k8s");
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {
