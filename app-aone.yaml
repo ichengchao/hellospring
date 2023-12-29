@@ -12,6 +12,7 @@ spec:
       labels:
         app: hellojava
     spec:
+      serviceAccountName: demo-sa
       containers:
       - name: hellojava
         image: ${IMAGE}

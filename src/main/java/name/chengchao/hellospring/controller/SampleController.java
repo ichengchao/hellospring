@@ -2,6 +2,7 @@ package name.chengchao.hellospring.controller;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -24,6 +25,24 @@ public class SampleController {
     @ResponseBody
     String root() {
         return "Hello World! @" + new Date();
+    }
+
+    @RequestMapping("/env")
+    public void env(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            Map<String, String> envVariables = System.getenv();
+            for (Map.Entry<String, String> entry : envVariables.entrySet()) {
+                sb.append(entry.getKey() + "=" + entry.getValue());
+                sb.append(lineBreak);
+            }
+            response.getWriter().write(sb.toString());
+            response.flushBuffer();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
     }
 
     @RequestMapping("/hello")
