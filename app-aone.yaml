@@ -1,7 +1,25 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rrsa-demo
+  labels:
+    pod-identity.alibabacloud.com/injection: 'on'
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demo-sa
+  namespace: rrsa-demo
+  annotations:
+    pod-identity.alibabacloud.com/role-name: k8s-role
+---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: hellojava-deployment
+  namespace: rrsa-demo
 spec:
   selector:
     matchLabels:
@@ -9,6 +27,7 @@ spec:
   replicas: 3 # tells deployment to run 2 pods matching the template
   template:
     metadata:
+      namespace: rrsa-demo
       labels:
         app: hellojava
     spec:

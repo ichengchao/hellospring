@@ -12,9 +12,10 @@ spec:
       labels:
         app: hellojava
     spec:
+      serviceAccountName: demo-sa
       containers:
       - name: hellojava
-        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:0.8
+        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:2023-12-29-10-47-04
         ports:
         - containerPort: 80
         - containerPort: 8080
