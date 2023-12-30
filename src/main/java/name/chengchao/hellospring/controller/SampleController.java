@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,9 @@ import name.chengchao.hellospring.util.LocalInfoUtils;
 
 @Controller
 public class SampleController {
+
+    @Autowired
+    private BuildProperties buildProperties;
 
     public static final String lineBreak = "\n";
 
@@ -85,7 +90,11 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(new Date());
             sb.append(lineBreak);
-            sb.append("hello k8s222");
+            sb.append("hello k8s");
+            sb.append(lineBreak);
+            sb.append(buildProperties.getName());
+            sb.append(lineBreak);
+            sb.append(buildProperties.getTime());
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {

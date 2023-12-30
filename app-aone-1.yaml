@@ -34,7 +34,7 @@ spec:
       serviceAccountName: demo-sa
       containers:
       - name: hellojava
-        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:2023-12-29-11-22-29
+        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:2023-12-30-14-12-29
         ports:
         - containerPort: 80
         - containerPort: 8080
