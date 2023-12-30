@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import name.chengchao.hellospring.service.AliyunAPIService;
 import name.chengchao.hellospring.util.LocalInfoUtils;
 
 @Controller
@@ -45,11 +46,24 @@ public class SampleController {
 
     }
 
+    @RequestMapping("/getCaller")
+    public void getCaller(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String result = AliyunAPIService.getCaller();
+            response.getWriter().write(result);
+            response.flushBuffer();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+    }
+
     @RequestMapping("/hello")
     public void hello(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
-            
+
             Map<String, String> envVariables = System.getenv();
             for (Map.Entry<String, String> entry : envVariables.entrySet()) {
                 sb.append(entry.getKey() + "=" + entry.getValue());
@@ -71,7 +85,7 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(new Date());
             sb.append(lineBreak);
-            sb.append("hello k8s1111");
+            sb.append("hello k8s222");
             response.getWriter().write(sb.toString());
             response.flushBuffer();
         } catch (Exception e) {
