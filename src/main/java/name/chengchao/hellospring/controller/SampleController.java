@@ -2,6 +2,7 @@ package name.chengchao.hellospring.controller;
 
 import java.io.InputStream;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
@@ -96,7 +97,8 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(buildProperties.getName());
             sb.append(lineBreak);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());;
             Instant instant = buildProperties.getTime();
             // sb.append(instant);
             // sb.append(lineBreak);
