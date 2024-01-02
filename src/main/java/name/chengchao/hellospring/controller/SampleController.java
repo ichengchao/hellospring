@@ -93,12 +93,13 @@ public class SampleController {
             sb.append(lineBreak);
             sb.append(new Date());
             sb.append(lineBreak);
-            sb.append("hello k8s");
+            sb.append("hello k8s 3333");
             sb.append(lineBreak);
             sb.append(buildProperties.getName());
             sb.append(lineBreak);
+            ZoneId zoneIdShanghai = ZoneId.of("Asia/Shanghai");
             DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(zoneIdShanghai);
             Instant instant = buildProperties.getTime();
             // sb.append(instant);
             // sb.append(lineBreak);
