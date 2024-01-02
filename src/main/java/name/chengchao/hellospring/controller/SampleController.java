@@ -98,7 +98,7 @@ public class SampleController {
             sb.append(buildProperties.getName());
             sb.append(lineBreak);
             DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());;
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
             Instant instant = buildProperties.getTime();
             // sb.append(instant);
             // sb.append(lineBreak);
