@@ -56,10 +56,10 @@ public class SampleController {
 
     }
 
-    @RequestMapping(value = "/getCaller", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCaller", method = RequestMethod.GET, produces = "application/json")
     public String getCaller(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String result = AliyunAPIService.getCaller();
+            String result = AliyunAPIService.getCallerTest();
             return result;
         } catch (Exception e) {
             return e.getMessage();

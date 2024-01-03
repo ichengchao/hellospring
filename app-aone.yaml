@@ -34,6 +34,17 @@ spec:
       serviceAccountName: demo-sa
       containers:
       - name: hellojava
+        env:
+        - name: HELLO-CONFIG-NKEY1
+          valueFrom:
+            configMapKeyRef:
+              name: helloconfig
+              key: nkey1
+        - name: HELLO-SECRET-SKEY1
+          valueFrom:
+            secretKeyRef:
+              name: hellosecret
+              key: skey1
         image: ${IMAGE}
         ports:
         - containerPort: 80
