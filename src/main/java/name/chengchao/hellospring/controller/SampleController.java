@@ -9,20 +9,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import name.chengchao.hellospring.service.AliyunAPIService;
 import name.chengchao.hellospring.util.LocalInfoUtils;
 
-@Controller
+@RestController
 public class SampleController {
 
     @Autowired
@@ -30,14 +30,18 @@ public class SampleController {
 
     public static final String lineBreak = "\n";
 
-    @RequestMapping("/")
-    @ResponseBody
-    String root() {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public Object index() {
         return "Hello World! @" + new Date();
     }
 
-    @RequestMapping("/env")
-    public void env(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/sayhello/{name}", method = RequestMethod.GET)
+    public Object sayhello(@PathVariable String name) {
+        return "hi," + name;
+    }
+
+    @RequestMapping(value = "/env", method = RequestMethod.GET)
+    public String env() {
         try {
             StringBuilder sb = new StringBuilder();
             Map<String, String> envVariables = System.getenv();
@@ -45,30 +49,26 @@ public class SampleController {
                 sb.append(entry.getKey() + "=" + entry.getValue());
                 sb.append(lineBreak);
             }
-            response.getWriter().write(sb.toString());
-            response.flushBuffer();
+            return sb.toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            return e.getMessage();
         }
 
     }
 
-    @RequestMapping("/getCaller")
-    public void getCaller(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/getCaller", method = RequestMethod.GET)
+    public String getCaller(HttpServletRequest request, HttpServletResponse response) {
         try {
             String result = AliyunAPIService.getCaller();
-            response.getWriter().write(result);
-            response.flushBuffer();
+            return result;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            return e.getMessage();
         }
 
     }
 
-    @RequestMapping("/hello")
-    public void hello(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello() {
         try {
             StringBuilder sb = new StringBuilder();
 
@@ -104,17 +104,15 @@ public class SampleController {
             // sb.append(instant);
             // sb.append(lineBreak);
             sb.append(formatter.format(instant));
-            response.getWriter().write(sb.toString());
-            response.flushBuffer();
+            return sb.toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            return e.getMessage();
         }
 
     }
 
-    @RequestMapping("/system")
-    public void system(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/system", method = RequestMethod.GET)
+    public String system(HttpServletRequest request, HttpServletResponse response) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(new Date());
@@ -136,35 +134,9 @@ public class SampleController {
                 sb.append(lineBreak);
             }
 
-            response.getWriter().write(sb.toString());
-            response.flushBuffer();
+            return sb.toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-        }
-
-    }
-
-    @RequestMapping("/mock")
-    public void mock(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            sb.append("机器增加到3个pod");
-            sb.append(lineBreak);
-            sb.append("-----------------------------------------------------------------------------");
-            sb.append(lineBreak);
-            sb.append("HostName:" + LocalInfoUtils.getHostNameForLiunx());
-            sb.append(lineBreak);
-            sb.append(Thread.currentThread());
-            sb.append(lineBreak);
-            sb.append(new Date());
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("content-type", "text/plain;charset=utf-8");
-            response.getWriter().write(sb.toString());
-            response.flushBuffer();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            return e.getMessage();
         }
 
     }
