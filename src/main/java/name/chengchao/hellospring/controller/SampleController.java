@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,10 +30,13 @@ public class SampleController {
     @Autowired
     private BuildProperties buildProperties;
 
+    private static Logger logger = LoggerFactory.getLogger(SampleController.class);
+
     public static final String lineBreak = "\n";
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public Object index() {
+        logger.info("hello world");
         return "Hello World! @" + new Date();
     }
 
