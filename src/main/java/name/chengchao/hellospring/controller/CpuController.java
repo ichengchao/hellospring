@@ -16,7 +16,9 @@ public class CpuController {
 
     private static Logger logger = LoggerFactory.getLogger(CpuController.class);
 
-    public static final int CpuCoreNum = Runtime.getRuntime().availableProcessors();
+    // 在ECI中获取CPU核数不对,先手动fix一下
+    public static final int CpuCoreNum =
+        Runtime.getRuntime().availableProcessors() <= 1 ? 2 : Runtime.getRuntime().availableProcessors();
 
     public static ExecutorService MyExecutor = Executors.newFixedThreadPool(CpuCoreNum);
 
