@@ -36,12 +36,13 @@ public class SampleController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public Object index() {
-        logger.info("hello world");
+        // logger.info("hello world");
         return "Hello World! @" + new Date();
     }
 
     @RequestMapping(value = "/sayhello/{name}", method = RequestMethod.GET)
     public Object sayhello(@PathVariable String name) {
+        logger.info("hello,{}", name);
         return "hi," + name;
     }
 
