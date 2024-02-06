@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import name.chengchao.hellospring.model.Person;
-import name.chengchao.hellospring.service.PersonRepository;
+import name.chengchao.hellospring.service.PersonService;
 
 @RestController
 public class PersonController {
@@ -28,15 +27,13 @@ public class PersonController {
     // ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 ;
 
     @Autowired
-    private PersonRepository personRepository;
-    
+    private PersonService personService;
 
     private static Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @RequestMapping(value = "/persons", method = RequestMethod.GET)
     public List<Person> getAllPersons() {
-        Iterable<Person> iterable = personRepository.findAll();
-        List<Person> list = Streamable.of(iterable).toList();
+        List<Person> list = personService.getAllPersons();
         logger.info("getAllPersons,size:{}", list.size());
         return list;
     }
@@ -44,20 +41,27 @@ public class PersonController {
     @RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
     public Person getPersonById(@PathVariable long id) {
         logger.info("getPersonById,id:{}", id);
-        return personRepository.findById(id).get();
+        return personService.getPersonById(id);
     }
 
     @RequestMapping(value = "/person", method = RequestMethod.POST, produces = "application/json")
     public Object addPerson(@RequestBody Person person) {
-        person = personRepository.save(person);
+        personService.addPerson(person);
         logger.info("addPerson,{}", person.toString());
+        return person;
+    }
+
+    @RequestMapping(value = "/person", method = RequestMethod.PUT, produces = "application/json")
+    public Object updatePerson(@RequestBody Person person) {
+        person = personService.updatePerson(person);
+        logger.info("updatePerson,{}", person.toString());
         return person;
     }
 
     @RequestMapping(value = "/person/{id}", method = RequestMethod.DELETE)
     public Object deletePerson(@PathVariable long id) {
         logger.info("deletePerson,id:{}", id);
-        personRepository.deleteById(id);
+        personService.deletePerson(id);
         return id;
     }
 
