@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rrsa-demo
+  name: charles-rrsa
   labels:
     pod-identity.alibabacloud.com/injection: 'on'
 
@@ -10,16 +10,16 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: demo-sa
-  namespace: rrsa-demo
+  name: account-charles
+  namespace: charles-rrsa
   annotations:
-    pod-identity.alibabacloud.com/role-name: k8s-role
+    pod-identity.alibabacloud.com/role-name: k8s-role-charles
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: hellojava-deployment
-  namespace: rrsa-demo
+  namespace: charles-rrsa
 spec:
   selector:
     matchLabels:
@@ -27,14 +27,25 @@ spec:
   replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
-      namespace: rrsa-demo
+      namespace: charles-rrsa
       labels:
         app: hellojava
     spec:
-      serviceAccountName: demo-sa
+      serviceAccountName: account-charles
       containers:
       - name: hellojava
-        image: registry.cn-hangzhou.aliyuncs.com/ichengchao/hellojava:2024-04-24-14-29-00
+        env:
+        - name: HELLO-CONFIG-NKEY1
+          valueFrom:
+            configMapKeyRef:
+              name: helloconfig
+              key: nkey1
+        - name: HELLO-SECRET-SKEY1
+          valueFrom:
+            secretKeyRef:
+              name: hellosecret
+              key: skey1
+        image: ${IMAGE}
         ports:
         - containerPort: 80
         - containerPort: 8080
