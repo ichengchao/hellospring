@@ -53,7 +53,7 @@ public class SampleController {
             Map<String, String> envVariables = System.getenv();
             for (Map.Entry<String, String> entry : envVariables.entrySet()) {
                 sb.append(entry.getKey() + "=" + entry.getValue());
-                sb.append(lineBreak);
+                sb.append("<br>");
             }
             return sb.toString();
         } catch (Exception e) {
